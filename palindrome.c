@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   palindrome.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: josgarci <josgarci@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/08/13 13:17:14 by josgarci          #+#    #+#             */
+/*   Updated: 2022/08/13 13:35:34 by josgarci         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 /**
  * Definition for singly-linked list.
@@ -13,57 +24,59 @@
 
 struct ListNode
 {
-	int val;
-	struct ListNode *next;
+	int				val;
+	struct ListNode	*next;
 };
 
-int count_list(struct ListNode* head)
+int	count_list(struct ListNode *head)
 {
-	int i = 0;
-	struct ListNode *aux;
-	aux = head;
-	while (aux)
-	{
-		i++;
-		aux = aux->next;
-	}
-	return i;
-}
-
-int get_value_by_index(struct ListNode* head, int index)
-{
-	int i;
-	int value;
-	struct ListNode *aux;
+	int				i;
+	struct ListNode	*aux;
 
 	i = 0;
 	aux = head;
-	while (i != index)
-	{
-		aux = aux->next;
-		i++;
-	}
-	value = aux->val;
-	return (value);
-}
-
-bool isPalindrome(struct ListNode* head)
-{
-	//int list_len = count_list(head);
-	int index = 0;
-	int val_index;
-	struct ListNode* aux;
-	aux = head;
 	while (aux)
 	{
-		val_index = get_value_by_index(head, index);
-		printf("Indice %d -> valor %d\n", index, val_index);
-		index++;
+		i++;
 		aux = aux->next;
+	}
+	return (i);
+}
+
+int	*list_to_array(struct ListNode *head, int *len)
+{
+	int	*array;
+
+	array = malloc(sizeof(int) * count_list(head));
+	while (head)
+	{
+		array[*len] = head->val;
+		(*len)++;
+		head = head->next;
+	}
+	return (array);
+}
+
+bool	isPalindrome(struct ListNode *head)
+{
+	int	*nums;
+	int	len;
+	int	i;
+
+	i = 0;
+	len = 0;
+	nums = list_to_array(head, &len);
+	printf("longitud array: %d\n", len);
+	while (i < len / 2)
+	{
+		if (nums[i] != nums[len - i - 1])
+			return (false);
+		i++;
 	}
 	return (true);
 }
 
+/* 
 struct ListNode  *ft_lstnew(int val)
 {
         struct ListNode  *new;
@@ -109,7 +122,7 @@ struct ListNode *create_list(int *head, int len)
 		return (NULL);
 	while (i < len)
 	{
-		printf("%d\n", head[i]);
+		// printf("%d\n", head[i]);
 		ft_lstadd_back(&list, ft_lstnew(head[i]));
 		i++;
 	}
@@ -132,10 +145,11 @@ void print_list(struct ListNode *lst)
 int main ()
 {
 	struct ListNode *list;
-	int len = 4;
-	int head[] = {1,2,2,1};
+	int len = 23;
+	int head[] = {1,2,2,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,7,1,1};
 	list = create_list(head, len);
 	isPalindrome(list);
 
 	return (0);
 }
+ */
