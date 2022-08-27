@@ -36,12 +36,31 @@ int* kWeakestRows(int** mat, int matSize, int* matColSize, int k, int* returnSiz
     (void) matColSize;
     (void) returnSize;
 
-    int *solution;
+	int *sum_row;
 
-    solution = malloc(sizeof(int) * k);
-    *returnSize = k;
+	sum_row = malloc(sizeof(int) * matSize);
+	add_row(mat, sum_row, matSize, *matColSize);
+	*returnSize = k;
 
-    return NULL;
+
+	return (sum_row);
+}
+
+int main(void)
+{
+	int *mat[] = 
+	{
+		(int[]) {1,1,0,0,0},
+		(int[]) {1,1,1,1,0},
+		(int[]) {1,0,0,0,0},
+		(int[]) {1,1,0,0,0},
+		(int[]) {1,1,1,1,1}
+	};
+	int mat_rows = 5;
+	int mat_cols = 5;
+	kWeakestRows(mat, 5, &mat_rows, 3, &mat_cols);
+	print_matrix(mat, mat_rows, mat_cols);
+	return 0;
 }
 
 int main(void)
